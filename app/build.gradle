@@ -10,6 +10,7 @@ project.rootProject.file('local.properties').newDataInputStream().withCloseable 
 }
 
 def API_KEY = localProperties['apiKey']
+def API_URL = localProperties['apiUrl']
 
 android {
     compileSdkVersion 29
@@ -22,6 +23,7 @@ android {
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
 
         buildConfigField 'String', "API_KEY", API_KEY
+        buildConfigField 'String', "API_URL", API_URL
     }
     buildTypes {
 
