@@ -5,7 +5,7 @@ import davydov.dmytro.coroutineshomework.searchPhotosFlow.searchPhotos.Photo
 import davydov.dmytro.coroutineshomework.searchPhotosFlow.searchPhotos.SearchOrder
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
-import retrofit2.converter.jackson.JacksonConverterFactory
+import retrofit2.converter.gson.GsonConverterFactory
 
 object SearchEngine {
 
@@ -16,7 +16,7 @@ object SearchEngine {
     private val pixabayApi = Retrofit.Builder()
         .baseUrl(BuildConfig.API_URL)
         .client(okHttpClient)
-        .addConverterFactory(JacksonConverterFactory.create())
+        .addConverterFactory(GsonConverterFactory.create())
         .build()
         .create(PixabayApi::class.java)
 
@@ -26,7 +26,7 @@ object SearchEngine {
             SearchOrder.POPULAR -> POPULAR_ORDER_STR
         }
 
-        return pixabayApi.search(query, orderForApi)
+        return pixabayApi.search(query, orderForApi).photos
     }
 
     private const val LATEST_ORDER_STR = "latest"
