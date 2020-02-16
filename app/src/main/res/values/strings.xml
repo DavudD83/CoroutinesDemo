@@ -1,3 +1,9 @@
 <resources>
     <string name="app_name">CoroutinesHomework</string>
+    <string name="search_title">Search!</string>
+    <string name="hint_search">Search for cats or anything you want</string>
+    <string name="empty_search_text">No photos were found. Try again</string>
+    <string name="error_search_text">Something went wrong during search. Try again</string>
+    <string name="popular_order_text">Popular</string>
+    <string name="latest_order_text">Latest</string>
 </resources>
