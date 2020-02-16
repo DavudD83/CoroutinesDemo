@@ -7,8 +7,6 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.bumptech.glide.request.RequestOptions
-import com.bumptech.glide.request.target.ViewTarget
 import davydov.dmytro.coroutineshomework.R
 
 class PhotosAdapter : RecyclerView.Adapter<PhotoViewHolder>() {
@@ -42,16 +40,15 @@ class PhotoViewHolder(view: View) : RecyclerView.ViewHolder(view) {
     private val likesCount = view.findViewById<TextView>(R.id.likesCount)
 
     fun bind(photo: Photo) {
-        val requestManager = Glide
+        Glide
             .with(photoImage)
+            .run {
+                clear(photoImage)
 
-        requestManager.run {
-            clear(photoImage)
-
-            load(photo.url)
-                .centerCrop()
-                .into(photoImage)
-        }
+                load(photo.url)
+                    .centerCrop()
+                    .into(photoImage)
+            }
 
         likesCount.text = "${photo.likesCount}"
     }

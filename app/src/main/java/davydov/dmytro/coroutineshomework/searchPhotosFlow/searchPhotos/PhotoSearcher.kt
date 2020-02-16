@@ -1,6 +1,7 @@
 package davydov.dmytro.coroutineshomework.searchPhotosFlow.searchPhotos
 
 import davydov.dmytro.coroutineshomework.network.SearchEngine
+import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.withContext
@@ -25,6 +26,8 @@ class PhotoSearcher {
             } else {
                 SearchPhotosState.EmptySearch
             }
+        } catch (ex: CancellationException) {
+            throw ex
         } catch (ex: Throwable) {
             SearchPhotosState.Error
         }

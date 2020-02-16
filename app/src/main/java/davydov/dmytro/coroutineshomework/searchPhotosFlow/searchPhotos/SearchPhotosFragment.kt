@@ -3,14 +3,13 @@ package davydov.dmytro.coroutineshomework.searchPhotosFlow.searchPhotos
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import davydov.dmytro.coroutineshomework.R
+import davydov.dmytro.coroutineshomework.coroutinesBase.FragmentScopeManager
 import kotlinx.android.synthetic.main.fragment_photos_search.*
 import kotlinx.coroutines.*
 
@@ -21,13 +20,14 @@ class SearchPhotosFragment : Fragment() {
 
     lateinit var photoSearcher: PhotoSearcher
 
-    private val fragmentScope = CoroutineScope(Dispatchers.Main + Job())
+    private val fragmentScopeManager = FragmentScopeManager()
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
+        fragmentScopeManager.createScopeWith(viewLifecycleOwner)
         return inflater.inflate(R.layout.fragment_photos_search, container, false)
     }
 
@@ -64,7 +64,7 @@ class SearchPhotosFragment : Fragment() {
     }
 
     private fun searchPhotos(query: String, order: SearchOrder) {
-        fragmentScope.launch {
+        fragmentScopeManager.fragmentScope.launch {
             showLoading()
 
             val resultState = photoSearcher.search(query, order = order)
@@ -105,11 +105,6 @@ class SearchPhotosFragment : Fragment() {
 
     private fun hideLoading() {
         loadingIndicator.visibility = View.GONE
-    }
-
-    override fun onDestroy() {
-        super.onDestroy()
-        fragmentScope.cancel()
     }
 }
 

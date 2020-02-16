@@ -16,7 +16,7 @@ interface PixabayApi {
     ): SearchPhotoResponse
 
     companion object {
-        const val DEFAULT_IMAGE_TYPE = "photo"
-        const val DEFAULT_ORIENTATION = "horizontal"
+        private const val DEFAULT_IMAGE_TYPE = "photo"
+        private const val DEFAULT_ORIENTATION = "horizontal"
     }
 }
